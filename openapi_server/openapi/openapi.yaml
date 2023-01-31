@@ -1,0 +1,372 @@
+openapi: 3.0.0
+info:
+  title: survey-thingy
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /surveys:
+    post:
+      operationId: create_survey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSurvey'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: Success
+      summary: Create Survey
+      tags:
+      - survey
+      x-openapi-router-controller: openapi_server.controllers.survey_controller
+  /surveys/{survey-id}:
+    delete:
+      operationId: delete_survey
+      parameters:
+      - explode: false
+        in: path
+        name: survey-id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "204":
+          description: Success
+      summary: Delete Survey
+      tags:
+      - survey
+      x-openapi-router-controller: openapi_server.controllers.survey_controller
+  /surveys/{survey-id}/end_date:
+    post:
+      operationId: set_end
+      parameters:
+      - explode: false
+        in: path
+        name: survey-id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetEnd'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: Success
+      summary: Set End-Date
+      tags:
+      - survey
+      x-openapi-router-controller: openapi_server.controllers.survey_controller
+  /surveys/{survey-id}/publish:
+    post:
+      operationId: publish
+      parameters:
+      - explode: false
+        in: path
+        name: survey-id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publish'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: Success
+      summary: Publish
+      tags:
+      - survey
+      x-openapi-router-controller: openapi_server.controllers.survey_controller
+  /surveys/{survey-id}/question:
+    get:
+      operationId: list_questions
+      parameters:
+      - explode: false
+        in: path
+        name: survey-id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Questions'
+          description: Success
+      summary: List Questions
+      tags:
+      - survey
+      x-openapi-router-controller: openapi_server.controllers.survey_controller
+    post:
+      operationId: create_question
+      parameters:
+      - explode: false
+        in: path
+        name: survey-id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateQuestion'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+          description: Success
+      summary: Create Question
+      tags:
+      - survey
+      x-openapi-router-controller: openapi_server.controllers.survey_controller
+  /surveys/{survey-id}/start_date:
+    post:
+      operationId: set_start
+      parameters:
+      - explode: false
+        in: path
+        name: survey-id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetStart'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: Success
+      summary: Set Start-Date
+      tags:
+      - survey
+      x-openapi-router-controller: openapi_server.controllers.survey_controller
+  /surveys/{survey-id}/{question-id}:
+    delete:
+      operationId: delete_question
+      parameters:
+      - explode: false
+        in: path
+        name: survey-id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      - explode: false
+        in: path
+        name: question-id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "204":
+          description: Success
+      summary: Delete Question
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+    get:
+      operationId: get_question
+      parameters:
+      - explode: false
+        in: path
+        name: survey-id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      - explode: false
+        in: path
+        name: question-id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+          description: Success
+      summary: Get Question
+      tags:
+      - user
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+components:
+  schemas:
+    Survey:
+      example:
+        name: name
+        id: 0
+      properties:
+        id:
+          title: id
+          type: integer
+        name:
+          title: name
+          type: string
+      required:
+      - id
+      - name
+      title: Survey
+      type: object
+    CreateSurvey:
+      example:
+        name: name
+      properties:
+        name:
+          title: name
+          type: string
+      required:
+      - name
+      title: CreateSurvey
+      type: object
+    SetStart:
+      example:
+        start-date: start-date
+        id: 0
+      properties:
+        id:
+          title: id
+          type: integer
+        start-date:
+          title: start-date
+          type: string
+      required:
+      - id
+      - start-date
+      title: SetStart
+      type: object
+    SetEnd:
+      example:
+        end-date: end-date
+        id: 0
+      properties:
+        id:
+          title: id
+          type: integer
+        end-date:
+          title: end-date
+          type: string
+      required:
+      - end-date
+      - id
+      title: SetEnd
+      type: object
+    Publish:
+      example:
+        id: 0
+      properties:
+        id:
+          title: id
+          type: integer
+      required:
+      - id
+      title: Publish
+      type: object
+    Question:
+      example:
+        question: question
+        question-type: question-type
+        answers: answers
+        id: 0
+      properties:
+        id:
+          title: id
+          type: integer
+        question:
+          title: question
+          type: string
+        question-type:
+          title: question-type
+          type: string
+        answers:
+          title: answers
+          type: string
+      required:
+      - answers
+      - id
+      - question
+      - question-type
+      title: Question
+      type: object
+    CreateQuestion:
+      example:
+        question: question
+        question-type: question-type
+        answers: answers
+      properties:
+        question:
+          title: question
+          type: string
+        question-type:
+          title: question-type
+          type: string
+        answers:
+          title: answers
+          type: string
+      required:
+      - answers
+      - question
+      - question-type
+      title: CreateQuestion
+      type: object
+    Questions:
+      example:
+        next: next
+        prev: prev
+        items:
+        - question: question
+          question-type: question-type
+          answers: answers
+          id: 0
+        - question: question
+          question-type: question-type
+          answers: answers
+          id: 0
+      properties:
+        prev:
+          title: prev
+          type: string
+        next:
+          title: next
+          type: string
+        items:
+          items:
+            $ref: '#/components/schemas/Question'
+          title: items
+          type: array
+      title: Questions
+      type: object
