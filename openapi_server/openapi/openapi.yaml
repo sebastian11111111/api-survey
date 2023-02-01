@@ -42,8 +42,34 @@ paths:
       tags:
       - survey
       x-openapi-router-controller: openapi_server.controllers.survey_controller
+    patch:
+      operationId: publish_survey
+      parameters:
+      - explode: false
+        in: path
+        name: survey-id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publish'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: Success
+      summary: Publish Survey
+      tags:
+      - survey
+      x-openapi-router-controller: openapi_server.controllers.survey_controller
   /surveys/{survey-id}/end_date:
-    post:
+    patch:
       operationId: set_end
       parameters:
       - explode: false
@@ -69,34 +95,7 @@ paths:
       tags:
       - survey
       x-openapi-router-controller: openapi_server.controllers.survey_controller
-  /surveys/{survey-id}/publish:
-    post:
-      operationId: publish
-      parameters:
-      - explode: false
-        in: path
-        name: survey-id
-        required: true
-        schema:
-          type: integer
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Publish'
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Survey'
-          description: Success
-      summary: Publish
-      tags:
-      - survey
-      x-openapi-router-controller: openapi_server.controllers.survey_controller
-  /surveys/{survey-id}/question:
+  /surveys/{survey-id}/questions:
     get:
       operationId: list_questions
       parameters:
@@ -144,34 +143,7 @@ paths:
       tags:
       - survey
       x-openapi-router-controller: openapi_server.controllers.survey_controller
-  /surveys/{survey-id}/start_date:
-    post:
-      operationId: set_start
-      parameters:
-      - explode: false
-        in: path
-        name: survey-id
-        required: true
-        schema:
-          type: integer
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SetStart'
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Survey'
-          description: Success
-      summary: Set Start-Date
-      tags:
-      - survey
-      x-openapi-router-controller: openapi_server.controllers.survey_controller
-  /surveys/{survey-id}/{question-id}:
+  /surveys/{survey-id}/questions/{question-id}:
     delete:
       operationId: delete_question
       parameters:
@@ -194,8 +166,8 @@ paths:
           description: Success
       summary: Delete Question
       tags:
-      - user
-      x-openapi-router-controller: openapi_server.controllers.user_controller
+      - survey
+      x-openapi-router-controller: openapi_server.controllers.survey_controller
     get:
       operationId: get_question
       parameters:
@@ -222,8 +194,35 @@ paths:
           description: Success
       summary: Get Question
       tags:
-      - user
-      x-openapi-router-controller: openapi_server.controllers.user_controller
+      - survey
+      x-openapi-router-controller: openapi_server.controllers.survey_controller
+  /surveys/{survey-id}/start_date:
+    patch:
+      operationId: set_start
+      parameters:
+      - explode: false
+        in: path
+        name: survey-id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetStart'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: Success
+      summary: Set Start-Date
+      tags:
+      - survey
+      x-openapi-router-controller: openapi_server.controllers.survey_controller
 components:
   schemas:
     Survey:

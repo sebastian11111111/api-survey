@@ -47,6 +47,21 @@ def create_survey(create_survey=None):  # noqa: E501
     return 'do some magic!'
 
 
+def delete_question(survey_id, question_id):  # noqa: E501
+    """Delete Question
+
+     # noqa: E501
+
+    :param survey_id: 
+    :type survey_id: int
+    :param question_id: 
+    :type question_id: int
+
+    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
+    """
+    return 'do some magic!'
+
+
 def delete_survey(survey_id):  # noqa: E501
     """Delete Survey
 
@@ -56,6 +71,21 @@ def delete_survey(survey_id):  # noqa: E501
     :type survey_id: int
 
     :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
+    """
+    return 'do some magic!'
+
+
+def get_question(survey_id, question_id):  # noqa: E501
+    """Get Question
+
+     # noqa: E501
+
+    :param survey_id: 
+    :type survey_id: int
+    :param question_id: 
+    :type question_id: int
+
+    :rtype: Union[Question, Tuple[Question, int], Tuple[Question, int, Dict[str, str]]
     """
     return 'do some magic!'
 
@@ -73,8 +103,8 @@ def list_questions(survey_id):  # noqa: E501
     return 'do some magic!'
 
 
-def publish(survey_id, publish=None):  # noqa: E501
-    """Publish
+def publish_survey(survey_id, publish=None):  # noqa: E501
+    """Publish Survey
 
      # noqa: E501
 
